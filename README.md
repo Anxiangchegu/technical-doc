@@ -6,4 +6,4 @@
 ### 主要内容
 ![技术文档](docs/zh-cn/_images/技术文档.png "简介")
 
-访问：[体系化的技术文档](https://anxiangchegu.github.io/technical-doc)
+### 访问：[体系化的技术文档](https://anxiangchegu.github.io/technical-doc)
