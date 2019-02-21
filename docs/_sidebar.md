@@ -22,7 +22,7 @@
   - [SQL]()
     - [概览导图](zh-cn/sql/_sql_mind_map.md)
   - [Pandas](zh-cn/python/pandas.md)
-    - [10分钟体验](zh-cn/python/pandas10Min.md)
+    - [10分钟体验](zh-cn/python/pandasTenMIn.md)
     - [基础](zh-cn/python/pandasBasic.md)
   - [Linux]()
     - [Linux常用命令](zh-cn/linux/LinuxCommonCommands.md)
