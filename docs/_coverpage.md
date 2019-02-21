@@ -2,8 +2,8 @@
 
 >致力于建设体系化的技术文档  
 
-- Java：Java基础、Spring Boot
-- Python：Panads
+- Java：Java基础、Spring Boot   
+- Python：NumPy、Panads、Mars                
 - 大数据分析：SQL、Hadoop、Spark
 
 [博客园](https://www.cnblogs.com/hugo01) 
