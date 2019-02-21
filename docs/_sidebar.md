@@ -1,4 +1,7 @@
 <!-- docs/_sidebar.md -->
+ > 笔名：沐之杰  
+ 邮箱：qyx01@qq.com    
+ 
 - 写在前面
   - [初衷](zh-cn/foreword/original_intention.md)
   - [想成为什么样的人](zh-cn/foreword/encourage_oneself.md)
@@ -28,3 +31,4 @@
   - [Spark](zh-cn/Exception/_comingSoon.md)
 - [友情链接](zh-cn/friendLink.md)
 - [更新日志](zh-cn/changelog.md)
+- [关于我]()
