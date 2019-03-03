@@ -25,7 +25,7 @@
     - [SQL导图及体系](zh-cn/sql/_sql_mind_map.md)
   - [Python](zh-cn/python/pythonSystem.md)
   - [**Pandas**](zh-cn/python/pandas.md)
-    - [10分钟体验](zh-cn/python/pandasTenMin.md)
+    - [10分钟体验](zh-cn/python/pandas10minutes.md)
     - [基础知识](zh-cn/python/pandasBasic.md)
   - [**Linux**]()
     - [Linux常用命令](zh-cn/linux/LinuxCommonCommands.md)
