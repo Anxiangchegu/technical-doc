@@ -65,6 +65,12 @@ UPDATE table_name SET city = TRIM(city);
 # 在table_name表中，将city字段中含有的“成都”替换为“成都市”。
 UPDATE table_name SET city = REPLACE(city,'成都','成都市');
 ```
+#### 百分比
+```sql
+-- CONCAT('a/b','%')代表拼接%
+SELECT CONCAT(CAST(round((1/2)*100,2) AS CHAR),'%') AS percentage FROM table_name; 
+```
+
 ## 预处理
 #### 数据表匹配合并
 &emsp;&emsp;类似Excel中的`VLOOKUP()`函数和Power Query的合并查询功能。
@@ -183,3 +189,6 @@ ORDER BY sizenote, colornote, 销售额 DESC;
 # 查询销售大区对应哪些办事处
 SELECT `销售大区`,GROUP_CONCAT(`办事处`) FROM `2018年某牌销售表` GROUP BY `销售大区`;
 ```
+
+
+参考资料：《从Excel到SQL数据分析进阶指南》
