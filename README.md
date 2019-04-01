@@ -8,3 +8,5 @@
 
 ### 主要内容
 ![技术文档](docs/zh-cn/_images/技术文档1.png "简介")
+
+[访问地址](https://anxiangchegu.github.io/technical-doc)
