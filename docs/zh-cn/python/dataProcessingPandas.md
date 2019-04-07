@@ -12,16 +12,16 @@ df=pd.read_excel(r'D:\test.xlsx')  # 直接默认读取到这个Excel的第一�
 data=df.head()  # 默认读取前5行的数据
 print("获取到所有的值:\n{0}".format(data))  # 格式化输出
 ```
-#### 数据写入
-```python
+#### 数据写入  
+```python 
 # 输出到Excel格式
 df_inner.to_Excel('Excel_to_Python.xlsx', sheet_name='bluewhale_cc')
 
 # 输出到CSV格式
 df_inner.to_csv('Excel_to_Python.csv')
 ```
-## 检查
-- 数据表
+## 检查  
+- 数据表  
 ```python
 df = pd.DataFrame({"id":[1001,1002,1003,1004,1005,1006],
     "date":pd.date_range('20130102', periods=6),
