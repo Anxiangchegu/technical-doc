@@ -11,7 +11,8 @@ df=pd.read_excel(r'D:\test.xlsx')  # 直接默认读取到这个Excel的第一�
 # df=pd.read_excel(filepath,sheet_name='Sheet1')  # 可以通过sheet_name来指定读取的表单
 data=df.head()  # 默认读取前5行的数据
 print("获取到所有的值:\n{0}".format(data))  # 格式化输出
-```
+``` 
+
 #### 数据写入  
 ```python 
 # 输出到Excel格式
