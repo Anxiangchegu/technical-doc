@@ -7,7 +7,7 @@
 [访问地址](https://anxiangchegu.github.io/technical-doc)
 
 ### 主要内容
-![技术文档](docs/zh-cn/_images/技术文档1.png "简介")
+![技术文档](/docs/zh-cn/_images/技术文档1.png "简介")
 
 ### 主要参考资料（致谢）
 1、《阿里巴巴Java开发手册》（详尽版）！；  
