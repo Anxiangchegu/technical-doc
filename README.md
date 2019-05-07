@@ -4,8 +4,7 @@
 * 毕竟我们拥有的是一个人类智慧大脑，而非机器智能大脑，经常回顾，难免被岁月洗白白。
 * 关于知识来源：整理于个人感悟，日常积累和总结，有微信公众号文章、书籍、博客等。
   
-#### [访问地址](https://anxiangchegu.github.io/technical-doc) ：https://anxiangchegu.github.io/technical-doc
-
+#### [访问地址](https://anxiangchegu.github.io/technical-doc)
 ### 主要内容
 ![技术文档](/docs/zh-cn/_images/技术文档1.png "简介")
 
