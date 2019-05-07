@@ -6,6 +6,8 @@
 
 ?> 此文档并不适合零基础的朋友浏览！如果是想入门的朋友，请踏踏实实地系统学习后再来浏览。
 
+#### [访问地址](https://anxiangchegu.github.io/technical-doc)
+
 ### 主要内容
 ![技术文档](zh-cn/_images/技术文档1.png "简介")
 
