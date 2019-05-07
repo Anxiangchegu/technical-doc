@@ -1,7 +1,13 @@
 ## 核心数据结构
-##### pandas最核心的就是Series和DataFrame两个数据结构。
-![数据结构](../_images/python/Series和DataFrame两个数据结构.jpg "数据结构")        
-DataFrame可以看做是Series的容器，即：一个DataFrame中可以包含若干个Series。
+##### pandas最核心的就是Series和DataFrame两个数据结构。     
+
+类型 | 维度 | 说明  
+---| --- | ---
+Series | 1维 | 带有标签的同构类型数组
+DataFrame | 2维 | 表格结构，带有标签，大小可变，且包含异构的数据列
+Panel | 3维 | Panel 是 DataFrame 的容器 
+
+DataFrame可以看做是Series的容器，即：一个DataFrame中可以包含若干个Series。  
 
 ## Pandas 中的入门函数
 ### 读取数据

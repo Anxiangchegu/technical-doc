@@ -4,6 +4,7 @@
 - [openpyxl]()：openpyxl只能操作xlsx文件而不能操作xls文件,read_only、write_only两种模式可以对大批量进行极速处理；
 - [xlwings](https://www.xlwings.org/)：与pandas完美结合，并且支持替代VBA宏。  
 这里暂且以pandas为例，整理日常场景中的操作。 
+
 #### 读取Excel
 ```python
 import pandas as pd
@@ -11,18 +12,28 @@ df=pd.read_excel(r'D:\test.xlsx')  # 直接默认读取到这个Excel的第一�
 # df=pd.read_excel(filepath,sheet_name='Sheet1')  # 可以通过sheet_name来指定读取的表单
 data=df.head()  # 默认读取前5行的数据
 print("获取到所有的值:\n{0}".format(data))  # 格式化输出
-``` 
+```
 
-#### 数据写入  
-```python 
+#### 数据写入
+```python
 # 输出到Excel格式
 df_inner.to_Excel('Excel_to_Python.xlsx', sheet_name='bluewhale_cc')
 
 # 输出到CSV格式
 df_inner.to_csv('Excel_to_Python.csv')
 ```
-## 检查  
-- 数据表  
+
+#### DataFrame 数据的保存和读取
+- df.to_csv 写入到 csv 文件
+- pd.read_csv 读取 csv 文件
+- df.to_json 写入到 json 文件
+- pd.read_json 读取 json 文件
+- df.to_html 写入到 html 文件
+- pd.read_html 读取 html 文件
+- df.to_excel 写入到 excel 文件
+
+## 检查
+- 数据表
 ```python
 df = pd.DataFrame({"id":[1001,1002,1003,1004,1005,1006],
     "date":pd.date_range('20130102', periods=6),
@@ -32,16 +43,19 @@ df = pd.DataFrame({"id":[1001,1002,1003,1004,1005,1006],
     "price":[1200,np.nan,2133,5433,np.nan,4432]},
     columns =['id','date','city','category','age','price'])
 ```
+
 #### 数据维度（行列）
 ```python
 # 查看数据表的维度(行列)
 df.shape
 ```
+
 #### 据表信息
 ```python
 # 可查看表的列名、数据类型等
 df.info()
 ```
+
 #### 查看数据格式
 ```python
 # 查看数据表各列格式
@@ -80,6 +94,10 @@ df.head(3)
 
 # 查看最后3行
 df.tail(3)
+```
+#### 查看数据表统计
+```python
+df.describe()
 ```
 
 ## 清洗
@@ -171,6 +189,11 @@ pd.DataFrame((x.split('-') for x in df_inner['category']),index=df_inner.index,c
 
 # 将完成分列后的数据表与原df_inner数据表进行匹配
 df_inner=pd.merge(df_inner,split,right_index=True, left_index=True)
+```
+#### 多列合并
+```python
+df['省市区'] = df['省'] +  df['市'] + df['区']
+# 若某一列是非str类型的数据，那么我们需要用到map(str)将那一列数据类型做转换
 ```
 
 ## 提取
