@@ -2,7 +2,11 @@
 `因不同数据库操作语句有差异，本页语句以MySql 8.0为例`
 
 ![SQL导图](../_images/Sql_mind_map.png "导图")
-## SELECT 查询
+##  数据库查询语言（DQL）
+
+### 1. 顺序
+##### 1.1 语法顺序
+```sql
 SELECT 语句由子句构成， 最重要的子句有：  
     • WITH  
     • SELECT  
@@ -12,7 +16,22 @@ SELECT 语句由子句构成， 最重要的子句有：
     • HAVING    
     • ORDERBY   
 这些总是使用这个顺序。
-> SELECT语句的语法 
+```
+##### 1.2 执行顺序
+```sql
+FROM
+WHERE
+GROUP BY
+HAVING
+SELECT
+DISTINCT
+UNION
+ORDER BY
+```
+### 2. 语法及示例
+> SELECT语句  
+
+- 多列查询  
 
 ```sql
 SELECT [DISTINCT] <目标列组>
@@ -20,14 +39,109 @@ SELECT [DISTINCT] <目标列组>
     [WHERE <元组选择条件>]
     [GROUP BY <分列组> [HAVING <组选择条件>]]
     [ORDER BY <排序1列> <排序2列>]
+    
+
+# 例子
+SELECT FirstName, LastName, OrderDate
+FROM Orders WHERE OrderDate > '10/10/2010'
+
+# 去重
+SELECT DISTINCT FirstName FROM Orders
 ```
 
-`SELECT * 会增加很多不必要的消耗（CPU、IO、内存、带宽）`
+`SELECT * 会增加很多不必要的消耗（CPU、IO、内存、带宽）`  
+
+- 从第一行开始选择一共五行数据
+  
+```sql
+SELECT FirstName FROM Orders  limt 5 offset 1;
+```
+- 排序  
+
+```sql
+# 语法
+SELECT co_name1,col_name2 
+FROM table_name 
+ORDER BY col_name1 DESC,col_name2 ASC
+
+#例子
+SELECT ,FirstName
+FROM Orders 
+ORDER BY OrderDate DESC
+```
+- 常用条件过滤
+
+```sql
+# 范围内检查
+SELECT col_name FROM table_name WHERE col_name BETEWEEN 5 AND 10;
+
+# 空值检查
+SELECT col_name FROM table_name WHERE col_name IS null;
+
+# in操作符
+SELECT col_name FROM table_name WHERE col_name IN (....);
+
+# NOT操作符
+SELECT col_name FROM table_name WHERE NOT (条件);
+
+# AND 和 OR 注意优先级 and 优先级高于or
+SELECT col_name FROM table_name 
+WHERE (condi_1 OR condi_2) AND condi_3;
+
+# 使用通配符进行过滤
+SELECT col_name FROM table_name WHERE col_name like '..%..';
+
+SELECT col_name FROM table_name WHERE col_name like '.._..';
+
+SELECT col_name FROM table_name WHERE col_name like '[]%';
+```
+- 分组并按条件筛选
+
+```sql
+# 语法
+SELECT <Column List>, <Aggregate Function>(<Column Name>)
+FROM <Table Name>
+WHERE <Search Condition>
+GROUP BY <Column List>
+
+# 例子
+SELECT LastName, SUM(OrderValue)
+FROM Orders
+WHERE OrderDate > '10/10/2010'
+GROUP BY LastName
+
+注意： 
+GROUP BY 后面也可以接条件。
+WHERE 语句和HAVING配合的使用。WHERE在HAVING之前。
+WHERE 过滤针对的是行，HAVING过滤针对的是组。
+```
+- 分组和排序的顺序
+
+```sql
+/*
+SELECR 
+FROM 
+WHERE
+GROUP BY 
+HAVING 
+ORDER BY
+*/
+SELECT  col_name FROM table_name
+WHERE <condition_1>
+GROUP BY <col_name>
+HAVING <condition_2>
+ORDER BY <col_name>
+```
 
 > 子查询
 
-写在()中，把内层查询结果当做外层查询参照的数据表来用。
-> 一些小例子
+&emsp;&emsp;写在()中，把内层查询结果当做外层查询参照的数据表来用。   
+```sql
+SELECT col_name FROM table_name 
+WHERE  col_name  = 
+(SELECT  col_name  FROM table_name WHERE .... );
+```
+- 一些小例子
 
 ```sql
 -- 用and操作符查询s_id为101并且f_id为a1的水果记录
@@ -86,25 +200,132 @@ select * from fruits
 order by f_price desc
 limit 3;
 ```
-## 忠告
-?> INSERT、UPDATE、DELETE前一定要先SELECT一下看看是不是目标数据，这是血的经验教训。
-## INSERT 插入
+> 表的连接查询
+
+```sql
+# 语法
+SELECT <Column List>
+FROM <Table1> JOIN <Table2>
+ON <Table1>.<Column1> = <Table2>.<Column1>、
+
+# 示例
+SELECT Orders.LastName, Countries.CountryName
+FROM Orders INNER JOIN Countries ON
+Orders.CountryID = Countries.ID
+
+除此之外还有：
+左联结 LEFT JOIN
+右联结 RIGHT JOIN
+全联结 FULL JOIN
+```
+> 联合查询
+
+```sql
+# 语法
+SELECT <Column List> FROM <Table1>
+UNION
+SELECT <Column List> FROM <Table2>
+
+# 示例
+SELECT <Column List> FROM <Table1>
+UNION
+SELECT <Column List> FROM <Table2>
+```
+## 数据库操作语言（DML）
+
+##### 忠告
+?> 如果直接操作数据库，INSERT、UPDATE、DELETE前一定要先SELECT一下看看是不是目标数据，这是血的经验教训。
+
+> INSERT 插入
+
 ```sq1
 INSERT INTO table_name (列1, 列2,...) VALUES (值1, 值2,....)
 ```
 
-## UPDATE 更新
+> UPDATE 更新
+
 ```sql
 UPDATE table_name SET 列名称 = 新值 WHERE 列名称 = 某值
 ```
 
-## DELETE 删除
+> DELETE 删除
+
+&emsp;&emsp;delete语句是数据库操作语言(dml)，这个操作会放到 rollback segement 中，事务提交之后才生效；如果有相应的 trigger，执行的时候将被触发。
 ```sql
+# delete 语句用于删除表中的行。
 DELETE FROM 表名称 WHERE 列名称 = 值
 ```
 
-## 函数公式
-### 数学函数
+## 数据库定义语言（DDL）
+
+> CREATE 创建表
+
+```sql
+# 语法
+CREATE TABLE <Table Name>
+( Column1 DataType,
+ Column2 DataType,
+ Column3 DataType)
+ 
+# 示例
+create table table_name
+(
+    ExamNo      int     identity(1,1) primary key,
+    stuNo       char(6) not null,
+    writtenExam int     not null,
+    LabExam     int     not null
+)
+```
+> ALTER 更改表
+
+```sql
+# 语法
+CREATE TABLE <Table Name>
+ADD col_name Datatype;
+
+CREATE TABLE <Table Name>
+DROP COLUMN <col_name>
+ 
+# 例子
+ALTER TABLE Vendors 
+ADD vend_phone CHAR(20); 
+
+ALTER TABLE Vendors 
+DROP COLUMN vend_phone; 
+```
+
+> DROP 删除表
+
+&emsp;&emsp;truncate、drop 是数据库定义语言(ddl)，操作立即生效，原数据不放到 rollback segment 中，不能回滚，操作不触发 trigger。 
+```sql
+# 删除内容和定义，释放空间。
+DROP TABLE table_name;
+
+# 例子
+DROP TABLE CustCopy; 
+```
+
+> TRUNCATE 清空表
+
+&emsp;&emsp;如果有ROLLBACK命令Delete将被撤销，而TRUNCATE则不会被撤销。 
+```sql
+# 删除内容、释放空间但不删除定义(保留表的数据结构)。
+TRUNCATE TABLE table_name;
+```
+
+## 数据库控制语言（DCL）
+
+> GRANT 授权
+
+```sql
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'mypasswd' WITH GRANT OPTION;
+```
+> ROLLBACK [WORK] TO [SAVEPOINT] 回退到某一点
+
+> COMMIT [WORK] 提交
+
+## 常用函数公式
+### 1. 数学函数
 
 | 函数 | 	说明 | 
 | :---         |     :---:      |
@@ -125,7 +346,7 @@ DELETE FROM 表名称 WHERE 列名称 = 值
 | SQRT(x)  | 返回一个数的平方根 |
 | TRUNCATE(x,y)  | 返回数字x截短为y位小数的结果 |
  
-### 文本/字符串函数
+### 2. 文本/字符串函数
 
 | 函数 | 	说明 | 
 | :---         |     :---:      |
@@ -149,7 +370,7 @@ DELETE FROM 表名称 WHERE 列名称 = 值
 | SUBSTRING（str, pos） | SUBSTRING（被截取字段，从第几位开始截取，截取长度） | 
 | SUBSTRING_INDEX（str,delim,count） | SUBSTRING_INDEX（被截取字段，关键字，关键字出现的次数） |  
 
-### 日期及时间函数
+### 3. 日期及时间函数
 
 | 函数 | 	说明 | 
 | :---         |     :---:      |
@@ -172,7 +393,7 @@ DELETE FROM 表名称 WHERE 列名称 = 值
 | WEEK(date) | 返回日期date为一年中第几周(0~53) |  
 | YEAR(date) | 返回日期date的年份(1000~9999) |  
 
-### 聚合函数
+### 4. 聚合函数
 > 常用于GROUP BY从句的SELECT查询中
 
 | 函数 | 	说明 | 
@@ -183,11 +404,12 @@ DELETE FROM 表名称 WHERE 列名称 = 值
 | MAX(col) | 返回指定列的最大值 |    
 | SUM(col) | 返回指定列的所有值之和 |
 
-### 其它函数
+### 5. 其它函数
 | 函数 | 	说明 | 
 | :---         |     :---:      |
 | GROUP_CONCAT(col) | 返回由属于一组的列值连接组合而成的结果 |
 | CAST() | 将一个值转换为指定的数据类型 |
+| JSON_EXTRACT | 从json对象中取值 |
 > GROUP_CONCAT()函数： 常与关键字 GROUP BY 一起使用，能够将分组后的指定字段值都显示出来。
 
 ```sql
@@ -207,7 +429,7 @@ GROUP BY s_id;
 --  使用concat函数在f_name字段值前添加'fruit_'信息
 update fruits set f_name = concat('fruit_',f_name);
 ```
-### 比较运算符
+### 6. 比较运算符
 
 | 符号 | 说明 | 备注|
 | :---         |     :---:      |		:---:      |
@@ -321,12 +543,6 @@ create table 学员信息表(
     学员姓名 varchar(10),
     年龄 int
 );
-
--- 为学员信息表导入数据
-load data local infile 'D:/liwork/SQL/data/xyxx.csv' 
-	into table 学员信息表
-    fields terminated by ','
-    ignore 1 lines;
 
 -- 创建学员成绩表
 create table 学员成绩表(

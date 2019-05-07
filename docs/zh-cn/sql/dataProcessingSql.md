@@ -15,6 +15,7 @@ DESC命令查看数据表的整体信息
 ```sql
 # 查看table_name表信息
 DESC table_name;
+# 显示信息：Field、Type、Null、Key、Default、Extra
 ```
 #### 查找空值
 Mysql中可以使用IS NULL来判断空值。
@@ -100,7 +101,7 @@ SELECT * FROM table_name ORDER BY price DESC;
 #### 数组分组
 ```sql
 /* 为了便于理解，贴一个我曾经的写过的语句  */
-# 通过日期按星期分类汇总
+-- 通过日期按星期分类汇总
 SELECT `区域城市`,`宴会编码`,`跟单员`,`日期`,
 	CASE DAYNAME(日期) 
 		WHEN 'Monday'   THEN '星期一'
@@ -114,7 +115,7 @@ SELECT `区域城市`,`宴会编码`,`跟单员`,`日期`,
 	as 星期,时间,`桌数`,`购酒数`,`宴会类型`
 FROM `宴会基础信息表`
 
-# 直接分组查询并汇总
+-- 直接分组查询并汇总
 SELECT COUNT(id) AS id_count, SUM(price)AS total_price,
 CASE
     WHEN age<30 THEN 'A'
@@ -162,6 +163,23 @@ SELECT * FROM table_name LIMIT 2,5;
 # 按条件提取并计算
 SELECT AVG(price) FROM table_name WHERE city='成都' AND price < 19.88;
 ```
+#### 从JSON中提取
+```sql
+SELECT JSON_EXTRACT('{"name":"沐之杰","age":"13240133388"}',"$.name");
+```
+#### 复杂提取
+```sql
+-- 38°珍藏级剑南春（名烟酒）[500ml]
+# 假设table_name表中的col_name列有这样一个值：38°珍藏级剑南春（名烟酒）[500ml]，需要分别提取38°、珍藏级剑南春、名烟酒、500ml
+SELECT 
+    SUBSTRING_INDEX(col_name,'°',1) as 度数,  -- 38
+    SUBSTRING_INDEX(SUBSTRING_INDEX(col_name,'（',1),'°',-1) as 品名,  -- 珍藏级剑南春
+    SUBSTRING_INDEX(col_name,'）',-1) as 规格,  -- [500ml]
+    SUBSTRING_INDEX(SUBSTRING_INDEX(col_name,"（",-1),'）',1) as 版本,  -- 名烟酒
+    SUBSTRING_INDEX(SUBSTRING_INDEX(col_name,"[",-1),']',1) as 容量  -- 500ml
+FROM table_name
+```
+
 ## 筛选
 &emsp;&emsp;按条件筛选需要用到算术运算、逻辑运算符以及LIKE通配符等。
 ```sql
@@ -189,6 +207,3 @@ ORDER BY sizenote, colornote, 销售额 DESC;
 # 查询销售大区对应哪些办事处
 SELECT `销售大区`,GROUP_CONCAT(`办事处`) FROM `2018年某牌销售表` GROUP BY `销售大区`;
 ```
-
-
-参考资料：《从Excel到SQL数据分析进阶指南》
