@@ -35,13 +35,22 @@ df_inner.to_csv('Excel_to_Python.csv')
 ## 检查
 - 数据表
 ```python
-df = pd.DataFrame({"id":[1001,1002,1003,1004,1005,1006],
-    "date":pd.date_range('20130102', periods=6),
-    "city":['Beijing ', 'SH', ' guangzhou ', 'Shenzhen', 'shanghai', 'BEIJING '],
-    "age":[23,44,54,32,34,32],
-    "category":['100-A','100-B','110-A','110-C','210-A','130-F'],
-    "price":[1200,np.nan,2133,5433,np.nan,4432]},
-    columns =['id','date','city','category','age','price'])
+data = {"id": [1001, 1002, 1003, 1004, 1005, 1006],
+        "date": pd.date_range('20130102', periods=6),
+        "city": ['Beijing ', 'SH', ' guangzhou ', 'Shenzhen', 'shanghai', 'BEIJING '],
+        "age": [23, 44, 54, 32, 34, 32],
+        "category": ['100-A', '100-B', '110-A', '110-C', '210-A', '130-F'],
+        "price": [1200, np.nan, 2133, 5433, np.nan, 4432]}
+
+columns = ['id', 'date', 'city', 'category', 'age', 'price']
+labels = ['a', 'b', 'c', 'd', 'e', 'f']
+df = pd.DataFrame(data, index=labels, columns=columns)
+print(df)
+# 选取第一行 By 整数索引切片：前闭后开
+print(df[0:1])
+# 选取第一行 By 标签索引切片：前闭后闭
+print(df[:'a'])
+# loc函数主要通过行标签索引行数据,iloc 主要是通过行号获取行数据
 ```
 
 #### 数据维度（行列）
@@ -95,6 +104,32 @@ df.head(3)
 # 查看最后3行
 df.tail(3)
 ```
+#### loc函数查看
+```python
+# 将年龄为23的修改为18
+df.loc[df['age'] == 23,'age'] = 18
+# 年龄>30
+print(df.loc[df['age']>30,:])
+# 所有的id和姓名
+print(df.loc[:,('id','age')])
+print(df.loc[:,['id','age']])
+# 年龄大于30的id和年龄
+print(df.loc[df['age']>30,['id','age']])
+# 年龄等于 23 或 34的id、city、age
+print(df.loc[(df['age'] == 18) | (df['age'] == 34),['id','city','age']])
+```
+#### iloc函数查看
+```python
+# 选取2列
+print(df.iloc[:, 1])
+# 选取前3列
+print(df.iloc[:, 0: 3])
+# 选取第1、3、4列
+print(df.iloc[:,[0,2,3]])
+# 选取前3行的前3列
+print(df.iloc[:3, :3])
+```
+
 #### 查看数据表统计
 ```python
 df.describe()
