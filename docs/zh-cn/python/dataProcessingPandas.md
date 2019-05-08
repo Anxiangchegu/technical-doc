@@ -34,6 +34,7 @@ df_inner.to_csv('Excel_to_Python.csv')
 
 ## 检查
 - 数据表
+
 ```python
 data = {"id": [1001, 1002, 1003, 1004, 1005, 1006],
         "date": pd.date_range('20130102', periods=6),
@@ -50,9 +51,7 @@ print(df)
 print(df[0:1])
 # 选取第一行 By 标签索引切片：前闭后闭
 print(df[:'a'])
-# loc函数主要通过行标签索引行数据,iloc 主要是通过行号获取行数据
 ```
-
 #### 数据维度（行列）
 ```python
 # 查看数据表的维度(行列)
@@ -105,6 +104,7 @@ df.head(3)
 df.tail(3)
 ```
 #### loc函数查看
+&emsp;&emsp;loc函数主要通过行标签索引行数据
 ```python
 # 将年龄为23的修改为18
 df.loc[df['age'] == 23,'age'] = 18
@@ -119,6 +119,7 @@ print(df.loc[df['age']>30,['id','age']])
 print(df.loc[(df['age'] == 18) | (df['age'] == 34),['id','city','age']])
 ```
 #### iloc函数查看
+&emsp;&emsp;iloc 主要是通过行号获取行数据
 ```python
 # 选取2列
 print(df.iloc[:, 1])
