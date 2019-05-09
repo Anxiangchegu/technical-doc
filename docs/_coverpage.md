@@ -2,7 +2,7 @@
 
 >致力于建设体系化的技术文档  
 
-- Java：Java基础、Spring Boot   
+- Java：Java核心、Spring Boot   
 - Python：NumPy、Panads &emsp;            
 - 大数据分析：SQL、Hadoop、Spark
 
