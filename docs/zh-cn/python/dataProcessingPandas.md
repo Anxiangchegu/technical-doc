@@ -5,22 +5,34 @@
 - [xlwings](https://www.xlwings.org/)：与pandas完美结合，并且支持替代VBA宏。  
 这里暂且以pandas为例，整理日常场景中的操作。 
 
-#### 读取Excel
+#### 读取
 ```python
 import pandas as pd
+
+# Pandas读取Excel
 df=pd.read_excel(r'D:\test.xlsx')  # 直接默认读取到这个Excel的第一个表单
-# df=pd.read_excel(filepath,sheet_name='Sheet1')  # 可以通过sheet_name来指定读取的表单
+df=pd.read_excel(filepath,sheet_name='Sheet1')  # 可以通过sheet_name来指定读取的表单
+# header参数值默认为0，即用第一行作为列索引；usecols表示要导入第几列
 data=df.head()  # 默认读取前5行的数据
 print("获取到所有的值:\n{0}".format(data))  # 格式化输出
+
+# Pandas读CSV
+pd.DataFrame.from_csv("csv_file") 
+# read_csv()默认文件中的数据都是以逗号分开，也可以用sep=""指定分隔符；nrows指定前几行
+pd.read_csv("csv_file")
+
+# Pandas读取txt文件
+pd.read_table(r"c:\data\test.txt", sep=" ")  # 须用sep指明分隔符
+
 ```
 
 #### 数据写入
 ```python
 # 输出到Excel格式
-df_inner.to_Excel('Excel_to_Python.xlsx', sheet_name='bluewhale_cc')
+df.to_Excel('Excel_to_Python.xlsx', sheet_name='bluewhale_cc')
 
 # 输出到CSV格式
-df_inner.to_csv('Excel_to_Python.csv')
+df.to_csv("data.csv", sep=",", index=False) # 逗号分隔，没有下标
 ```
 
 #### DataFrame 数据的保存和读取
@@ -56,12 +68,16 @@ print(df[:'a'])
 ```python
 # 查看数据表的维度(行列)
 df.shape
+# 所有字段名
+df.columns
 ```
 
-#### 据表信息
+#### 数据集特征
 ```python
 # 可查看表的列名、数据类型等
 df.info()
+# 基本数据统计
+df.describe()
 ```
 
 #### 查看数据格式
@@ -72,7 +88,7 @@ df.dtypes
 # 查看单列数据格式
 df['B'].dtype
 ```
-#### 查看空值
+#### 查看缺失值、空值
 ```python
 #　查看数据空值
 df.isnull()
@@ -90,22 +106,25 @@ df['city'].unique()
 # 查看数据表的值
 df.values
 ```
-#### 查看列名称
+#### 查看前、后N行
 ```python
-# 查看列名称
-df.columns
+df.head(n) # 前n行
+df.tail(n) # 后n行
 ```
-#### 查看数据
+#### 通过特征、位置定位数据
 ```python
-# 查看前3行数据
-df.head(3)
+df.loc[feature_name]
 
-# 查看最后3行
-df.tail(3)
+# 选择“id”列的第一行
+df.loc([0], ['id'])
+
+df.iloc[n]  # 位置
 ```
 #### loc函数查看
 &emsp;&emsp;loc函数主要通过行标签索引行数据
 ```python
+# 选择“size”列的第一行
+df.loc([0], ['size'])
 # 将年龄为23的修改为18
 df.loc[df['age'] == 23,'age'] = 18
 # 年龄>30
@@ -176,6 +195,12 @@ df['city'].drop_duplicates()
 # 默认情况下drop_duplicates()将删除后出现的重复值(与Excel逻辑一致)。增加keep='last'参数后将删除最先出现的重复值，保留最后的值。
 df['city'].drop_duplicates(keep='last')
 ```
+#### 删除字段
+```python
+df.drop('city', axis=1)
+# 轴对于行是0，对于列是1
+```
+
 #### 修改数值
 ```python
 # Python中使用replace函数实现数据替换。
@@ -230,6 +255,11 @@ df_inner=pd.merge(df_inner,split,right_index=True, left_index=True)
 ```python
 df['省市区'] = df['省'] +  df['市'] + df['区']
 # 若某一列是非str类型的数据，那么我们需要用到map(str)将那一列数据类型做转换
+```
+#### 将对象类型转换为数值
+```python
+pd.to_numeric(df["feature_name"], errors='coerce')
+# 将对象类型转换为numeric以便能够执行计算(如果它们是字符串)
 ```
 
 ## 提取
