@@ -413,3 +413,232 @@ function toString(){
     return retStr;
 }
 ```
+## 链表
+&emsp;&emsp;一种简单的存储数据序列动态的数据结构，链表存储有序的元素集合，每个元素由一个存储元素本身的节点和一个指向下一个元素的引用（也称指针或链接）组成。
+添加或移除元素的时候不需要移动其他元素。然而，链表需要使用指针，因此实现链表时需要额外注意。
+
+##### 1、创建链表
+```javascript
+function LinkedList() {
+
+  let Node = function(element){ // {1}
+    this.element = element;
+    this.next = null;
+  };
+
+  let length = 0; // {2}
+  let head = null; // {3}
+
+  this.append = function(element){};
+  this.insert = function(position, element){};
+  this.removeAt = function(position){};
+  this.remove = function(element){};
+  this.indexOf = function(element){};
+  this.isEmpty = function() {};
+  this.size = function() {};
+  this.getHead = function(){};
+  this.toString = function(){};
+  this.print = function(){};
+}
+```
+##### 2、在链表末尾追加元素
+append(element)：向列表尾部添加一个新的项。
+```javascript
+this.append = function(element){
+
+  let node = new Node(element), //{1}
+    current; //{2}
+
+  if (head === null){ //列表中第一个节点 //{3}
+    head = node;
+
+  } else {
+    current = head; //{4}
+
+    //循环列表，直到找到最后一项
+    while(current.next){
+      current = current.next;
+    }
+
+    //找到最后一项，将其next赋为node，建立链接
+    current.next = node; //{5}
+  }
+
+  length++; //更新列表的长度 //{6}
+};
+```
+
+##### 3、从链表中移除元素
+remove(element)：从列表中移除一项
+```javascript
+this.removeAt = function(position){
+
+  //检查越界值
+  if (position > -1 && position < length){ // {1}
+
+    let current = head, // {2}
+    previous, // {3}
+    index = 0; // {4}
+
+    //移除第一项
+    if (position === 0){ // {5}
+      head = current.next;
+    } else {
+
+      while (index++ < position){ // {6}
+
+        previous = current;     // {7}
+        current = current.next; // {8}
+      }
+
+      //将previous与current的下一项链接起来：跳过current，从而移除它
+      previous.next = current.next; // {9}
+    }
+
+    length--; // {10}
+
+    return current.element;
+
+  } else {
+    return null; // {11}
+  }
+};
+```
+##### 4、在任意位置插入元素
+insert(position, element)：向列表的特定位置插入一个新的项。
+```javascript
+this.insert = function(position, element){
+
+  //检查越界值
+  if (position >= 0 && position <= length){ //{1}
+
+    let node = new Node(element),
+    current = head,
+    previous,
+    index = 0;
+
+    if (position === 0){ //在第一个位置添加
+
+      node.next = current; //{2}
+      head = node;
+
+    } else {
+      while (index++ < position){ //{3}
+        previous = current;
+        current = current.next;
+      }
+      node.next = current; //{4}
+      previous.next = node; //{5}
+    }
+
+    length++; //更新列表的长度
+
+    return true;
+
+  } else {
+    return false; //{6}
+  }
+};
+```
+##### 5、toString方法
+toString方法会把LinkedList对象转换成一个字符串。
+```javascript
+this.toString = function(){
+　
+  let current = head, //{1}
+  string = '';    //{2}
+　
+  while (current) {   //{3}
+    string +=current.element +(current.next ? 'n' : '');//{4}
+    current = current.next;          //{5}
+  }
+  return string;              //{6}
+};
+```
+##### 6、indexOf方法
+indexOf方法接收一个元素的值，如果在列表中找到它，就返回元素的位置，否则返回-1。
+```javascript
+this.indexOf = function(element){
+　
+  let current = head, //{1}
+  index = -1;
+　
+  while (current) { //{2}
+    if (element === current.element) {
+      return index;       //{3}
+    }
+    index++;                //{4}
+    current = current.next; //{5}
+  }
+　
+  return -1;
+};
+```
+
+##### 7、isEmpty方法
+如果列表中没有元素，isEmpty方法就返回true，否则返回false。
+```javascript
+this.isEmpty = function() {
+  return length === 0;
+};
+```
+##### 8、size方法
+size方法返回列表的length。和我们之前几章实现的类有所不同，列表的length是内部控制的，因为LinkedList是从头构建的。
+```javascript
+this.size = function() {
+  return length;
+};
+```
+##### 9、getHead方法
+head变量是LinkedList类的私有变量（这意味着它不能在LinkedList实例外部被访问和更改，只有通过LinkedList实例才可以）。
+```javascript
+this.getHead = function(){
+  return head;
+};
+```
+
+## 栈
+&emsp;&emsp;集合是一种不允许值重复的顺序数据结构，由一组无序且唯一（即不能重复）的项组成。  
+#### 1、集合的方法
+- add(value):向集合添加一个新的项  
+- remove(value):从集合移除一个值  
+- has(value):如果值在集合中，返回true,否则返回false  
+- clear():移除集合中的所有项  
+- size():返回集合所包含的元素数量，与数组的length属性相似  
+- values():返回一个集合中所有值的数组  
+- union(setName):并集，返回包含两个集合所有元素的新集合(元素不重复)  
+- intersection(setName):交集，返回包含两个集合中共有的元素的集合  
+- difference(setName):差集，返回包含所有存在本集合而不存在setName集合的元素的新集合  
+- subset(setName):子集，验证setName是否是本集合的子集
+
+```javascript
+function Set() {
+  let items = {};
+  
+  // has(value)方法,它会被add、remove等其他方法调用
+  this.has = function(value){
+    return value in items;
+  };
+  // 所有JavaScript对象都有hasOwnProperty方法。这个方法返回一个表明对象是否具有特定属性的布尔值。
+  this.has = function(value){
+    return items.hasOwnProperty(value);
+  };
+  
+  // remove()方法
+  this.remove = function(value){
+    if (this.has(value)){
+    delete items[value]; //{2}
+    return true;
+    }
+  return false;
+  };
+  
+  
+}
+```
+
+
+
+```
+学习整理《学习JavaScript数据结构与算法（第2版）》
+```

@@ -7,14 +7,15 @@
 ### 1. 顺序
 ##### 1.1 语法顺序
 ```sql
-SELECT 语句由子句构成， 最重要的子句有：  
-    • WITH  
-    • SELECT  
-    • FROM  
-    • WHERE  
-    • GROUP BY  
-    • HAVING    
-    • ORDERBY   
+# SELECT 语句由子句构成， 最重要的子句有：  
+SELECT columns_name       --查找一列或多列，多列之间用逗号隔开
+FROM Table                --目标表
+WHERE condition           --过滤条件
+GROUP BY columns_name     --按列值分组，可以1个或多个列
+HAVING condition          --分组后的筛选条件，HAVING与WHERE区别在于前者表达式中可包含函数
+ORDER BY columns_name     --按列排序
+LIMIT start, row_count    --对结果进行限定，start表示从哪行开始，row_count表示结果行数
+
 这些总是使用这个顺序。
 ```
 ##### 1.2 执行顺序

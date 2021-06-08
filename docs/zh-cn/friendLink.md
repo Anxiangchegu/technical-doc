@@ -4,6 +4,10 @@
 [Layui](https://www.layui.com)
 [Vue](https://cn.vuejs.org)
 
+#### Java后端
+[Fastjson](https://github.com/alibaba/fastjson)
+
+[MyBatis-Plus](https://mp.baomidou.com/)
 #### Spring
 [Spring Boot 中文索引](http://springboot.fun)
 
@@ -20,3 +24,4 @@
 #### 工具
 [JSON 在线解析及格式化](https://www.json.cn)   
 [JSON HTTP](https://www.sojson.com)
+[Git](https://git-scm.com/)
