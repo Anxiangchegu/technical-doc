@@ -1,5 +1,5 @@
 <!-- docs/_sidebar.md -->
- > 笔名：沐之杰  
+ > 笔名：沐鱼
  邮箱：qyx01@qq.com    
  
 -  写在前面
@@ -22,6 +22,8 @@
   - [**SQL**](zh-cn/sql/aboutSql.md)
     - [数据分析常用SQL](zh-cn/sql/dataProcessingSql.md)
     - [SQL导图及体系](zh-cn/sql/_sql_mind_map.md)
+    - [SQL案例](zh-cn/sql/sqlCase.md)
+    - [SQL优化](zh-cn/sql/optimize_mysql_sql.md)
   - [**数据分析**](zh-cn/dataAnalysis/aboutDataAnalysis.md)
     - [简介](zh-cn/dataAnalysis/知识体系.md)
     - [统计学](zh-cn/dataAnalysis/FundamentsalsOfstatistic.md)

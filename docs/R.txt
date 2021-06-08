@@ -1,0 +1,14 @@
+docsify serve docs
+docsify serve docs    2020-01-20
+
+pages:
+  stage: deploy
+  script:
+  - mkdir .public
+  - cp -r * .public
+  - mv .public public
+  artifacts:
+    paths:
+    - public
+  only:
+  - master
