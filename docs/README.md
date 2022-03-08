@@ -3,7 +3,10 @@
 * 虽不能面面俱到，但也希望通过提纲挈领的方式能起到触类旁通的作用。
 * 毕竟我们拥有的是一个人类智慧大脑，而非机器智能大脑，经常回顾，难免被岁月洗白白。
 * 关于知识来源：整理于个人感悟，日常积累和总结，有微信公众号文章、书籍、博客等。
-  
+ 
+ 
+## [本项目已全部迁至语雀进行维护更新](https://www.yuque.com/data_analyse/doc/ccum3w)
+## [点我！（新）这里是文档地址](https://www.yuque.com/data_analyse/doc/ccum3w)
 #### [Github地址](https://anxiangchegu.github.io/technical-doc) 
 当前最新版本： 1.0.2（发布日期：2021-06-07）
 
